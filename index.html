@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Favorite TV Shows</title>
+    <style type="text/css">
+        button,
+        div,
+        form,
+        input {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>TV Shows in a Giphy</h1>
+
+        <div id="buttons-view"></div>
+
+        <form id="tvShow-form">
+            <label for="tvShow-input">Add a TV Show</label>
+            <input type="text" id="tvShow-input"><br>
+
+            <!-- Button triggers new TV Show to be added -->
+            <input id="add-tvShow" type="submit" value="Add a tvShow">
+        </form>
+
+
+
+        <!-- tvShows will get dumped here -->
+        <div id="tvShow-Gifs"></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="app.js"></script>
+    </div>
+</body>
+
+</html>
