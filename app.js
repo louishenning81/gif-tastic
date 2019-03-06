@@ -4,7 +4,7 @@
 
     function displaytvShowGifs() {
 
-        var tvShows = $(this).attr("data-name");
+        var tvShow = $(this).attr("data-name");
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + tvShows + "&api_key=sp0gcY8joadxeTkHV7YlQy4m1ZLsPHvU&limit=10";
 
         $.ajax({
@@ -50,16 +50,16 @@
       }
 
       // This function handles events where one button is clicked
-      $("#add-show").on("click", function(event) {
+      $("#add-tvShow").on("click", function(event) {
         // event.preventDefault() prevents the form from trying to submit itself.
         // We're using a form so that the user can hit enter instead of clicking the button if they want
         event.preventDefault();
 
         // This line will grab the text from the input box
-        var tvShows = $("#show-input").val().trim();
+        var tvShow = $("#tvShow-input").val().trim();
         // The movie from the textbox is then added to our array
 
-        tvShows.push(tvShows);
+        tvShows.push(tvShow);
         
         // calling renderButtons which handles the processing of our movie array
         renderButtons();
