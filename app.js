@@ -6,24 +6,32 @@ function displaytvShowGifs() {
 
   var tvShow = $(this).attr("data-name");
   console.log($(this).attr("data-name"));
-  var queryURL = "https://api.giphy.com/GET/v1/gifs/search?q=" + tvShow + "&api_key=sp0gcY8joadxeTkHV7YlQy4m1ZLsPHvU&limit=10";
+  var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + tvShow + "&api_key=sp0gcY8joadxeTkHV7YlQy4m1ZLsPHvU&limit=10";
 
   $.ajax({
     url: queryURL,
     method: "GET"
   }).then(function (response) {
-
+    console.log(response.data);
     $("#tvShow-Gifs").empty();
-    var ratedDiv = $("<div class=rated>");
-    var rating = response.Rated;
-    var ratingP = $("<p>").text("Rated: " + rating);
-    ratedDiv.append(ratingP);
-    var gifstill = response.data.original_still;
-    var gif = response.data.original;
-    var gifDiv = $("<div class=gif>");
-    gifDiv.append(ratedDiv);
-    gifDiv.prepend(gifstill);
-    $("#tvShow-Gifs").prepend(gifDiv);
+    for (var i = 0; i < response.data.length; i++) {
+      var ratedDiv = $("<div>");
+      ratedDiv.addClass("rated");
+      var rated = response.data[i].rating;
+      var ratedP = $("<p>").text("Rated: " + rated);
+      ratedDiv.append(ratedP);
+      var gifstill = response.data[i].images.original_still.url;
+      var gif = response.data[i].images.original.url;
+      var gifDiv = $("<div>");
+      var image = $("<img>");
+      image.attr("src", gifstill);
+      image.attr("data-still", gifstill);
+      image.attr("data-animate", gif);
+      gifDiv.append(image);
+      gifDiv.addClass("gif");
+      gifDiv.append(gifDiv, ratedDiv);
+      $("#tvShow-Gifs").prepend(gifDiv);
+    }
   })
 }
 
