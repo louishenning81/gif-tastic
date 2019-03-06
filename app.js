@@ -6,7 +6,7 @@ function displaytvShowGifs() {
 
   var tvShow = $(this).attr("data-name");
   console.log($(this).attr("data-name"));
-  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + tvShow + "&api_key=sp0gcY8joadxeTkHV7YlQy4m1ZLsPHvU&limit=10";
+  var queryURL = "https://api.giphy.com/GET/v1/gifs/search?q=" + tvShow + "&api_key=sp0gcY8joadxeTkHV7YlQy4m1ZLsPHvU&limit=10";
 
   $.ajax({
     url: queryURL,
