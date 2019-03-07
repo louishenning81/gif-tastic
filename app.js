@@ -6,7 +6,7 @@ function displaytvShowGifs() {
 
   var tvShow = $(this).attr("data-name");
   console.log($(this).attr("data-name"));
-  var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + tvShow + "&api_key=sp0gcY8joadxeTkHV7YlQy4m1ZLsPHvU&limit=10";
+  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + tvShow + "&api_key=sp0gcY8joadxeTkHV7YlQy4m1ZLsPHvU&rating=G&limit=10";
 
   $.ajax({
     url: queryURL,
@@ -15,25 +15,36 @@ function displaytvShowGifs() {
     console.log(response.data);
     $("#tvShow-Gifs").empty();
     for (var i = 0; i < response.data.length; i++) {
-      var ratedDiv = $("<div>");
-      ratedDiv.addClass("rated");
       var rated = response.data[i].rating;
       var ratedP = $("<p>").text("Rated: " + rated);
-      ratedDiv.append(ratedP);
-      var gifstill = response.data[i].images.original_still.url;
-      var gif = response.data[i].images.original.url;
-      var gifDiv = $("<div>");
+      var gifstill = response.data[i].images.fixed_height_still.url;
+      var gif = response.data[i].images.fixed_height.url;
       var image = $("<img>");
       image.attr("src", gifstill);
       image.attr("data-still", gifstill);
       image.attr("data-animate", gif);
-      gifDiv.append(image);
-      gifDiv.addClass("gif");
-      gifDiv.append(gifDiv, ratedDiv);
-      $("#tvShow-Gifs").prepend(gifDiv);
+      image.attr("data-state", "still");
+      image.addClass("gifClick");
+      $("#tvShow-Gifs").prepend(ratedP, image);
     }
   })
 }
+
+$(document).on("click", ".gifClick", function() {
+  // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+  var state = $(this).attr("data-state");
+  console.log($(this).attr("data-state"))
+  // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+  // Then, set the image's data-state to animate
+  // Else set src to the data-still value
+  if (state === "still") {
+    $(this).attr("src", $(this).attr("data-animate"));
+    $(this).attr("data-state", "animate");
+  } else {
+    $(this).attr("src", $(this).attr("data-still"));
+    $(this).attr("data-state", "still");
+  }
+});
 
 // Function for displaying movie data
 function renderButtons() {
